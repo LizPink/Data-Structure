@@ -92,9 +92,9 @@ void Vector<T>::expand()
     if (_size < _capacity) return;                      // 尚未满员时不必扩容
     _capacity = std::max(_capacity, DEFAULT_CAPACITY);  // 不低于最小容量
     
-    _elem = new T[_capacity <<= 1];     // 容量加倍
-    T* oldElem = _elem;                 // 复制内容
-    for (int i=0; i<_size; i++)
+    T* oldElem = _elem;                 // 保存旧的数据
+    _elem = new T[_capacity <<= 1];     // 申请新的空间
+    for (int i=0; i<_size; i++)         // 新旧数据转移
     {
         _elem[i] = oldElem[i];
     }

@@ -1,5 +1,5 @@
-/* 05：无序向量 */
-/* 元素查找 */
+/* 06:无序向量 */
+/* 元素去重 */
 #include <iostream>
 #include <algorithm>
 
@@ -37,17 +37,17 @@ class Vector{
 
         // 元素查找函数
         Rank find(const T& e, Rank lo, Rank hi) const;
+
+        // 元素去重函数
+        int deduplicate();
 };
 
 
 int  main()
 {
     Vector<int> vec{5};
-    vec.insert(0,4); vec.insert(1,5); vec.insert(2,1); vec.insert(3,3); vec.insert(4,2);
-
-    std::cout << vec[3] << std::endl;
-    std::cout << "try to find 6...\nThe result is: " << vec.find(6,0,5) << std::endl;
-    std::cout << "try to find 2...\nThe result is: " << vec.find(2,0,5) << std::endl;
+    vec.insert(0,4); vec.insert(1,5); vec.insert(2,5); vec.insert(2,1); vec.insert(3,3); vec.insert(3,3); vec.insert(4,2);
+    std::cout << vec.deduplicate() << std::endl;
     return 0;
 }
 
@@ -95,7 +95,7 @@ void Vector<T>::expand()
 {
     if (_size < _capacity) return;                      // 尚未满员时不必扩容
     _capacity = std::max(_capacity, DEFAULT_CAPACITY);  // 不低于最小容量
-    
+
     T* oldElem = _elem;                 // 保存旧的数据
     _elem = new T[_capacity <<= 1];     // 申请新的空间
     for (int i=0; i<_size; i++)         // 新旧数据转移
@@ -141,4 +141,18 @@ Rank Vector<T>::find(const T& e, Rank lo, Rank hi) const	// 逆向查找：在�
 	return hi;			// 返回最终停止的索引：hi<lo意味着查找失败，否则hi即命中元素的秩。
 }
 
+// 元素去重函数
+template <typename T>
+int Vector<T>::deduplicate()
+{
+    int oldSize = _size;    // 记录原规模
+    Rank i = 1;             // 从_elem[1]开始
+    while(i < _size)        // 自前向后逐一考察各元素
+    {
+        (find(_elem[i], 0, i) < 0)  // 在前缀中寻找雷同者
+        ? i++                       // 若无雷同者，则往后继续查
+        : remove(i,i+1);            // 若有雷同者，则删除雷同者
+    }
+    return oldSize - _size;         // 返回向量被删除的个数
+}
 
