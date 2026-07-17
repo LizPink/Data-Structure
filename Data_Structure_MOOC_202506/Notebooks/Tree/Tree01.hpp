@@ -17,14 +17,14 @@ public:
     // 构造与析构
     // 构造函数：默认构造函数
     BinNode();
-    BinNode(T e, BinNodePosition p=nullptr, BinNodePosition lc=nullptr, BinNodePosition rc=nullptr, int h=0);
+    BinNode(const T& e, BinNodePosition p=nullptr, BinNodePosition lc=nullptr, BinNodePosition rc=nullptr, int h=0);
     
 
     // 接口实现
     int size();                                 // 统计子树规模
     BinNodePosition insertAsLC(const T&);
     BinNodePosition insertAsRC(const T&);
-    BinNodePosition successor();             // 中序遍历当前节点的直接后继
+    BinNodePosition successor();                // 中序遍历当前节点的直接后继
     template <typename VST>
     void travelLevel(VST&);
     template <typename VST>
