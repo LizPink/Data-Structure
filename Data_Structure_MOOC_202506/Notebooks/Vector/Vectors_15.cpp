@@ -9,6 +9,10 @@ constexpr int DEFAULT_CAPACITY = 3;
 
 template <typename T>
 class Vector{
+    public:
+    using Rank = int;
+    inline static constexpr int DEFAULT_CAPACITY = 3;
+
     private:
         Rank _size;         // 规模
         int _capacity;      // 容量

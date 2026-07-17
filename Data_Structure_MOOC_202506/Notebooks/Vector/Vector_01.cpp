@@ -2,11 +2,12 @@
 #include <iostream>
 #include <algorithm>
 
-using Rank = int;
-constexpr int DEFAULT_CAPACITY = 3;
-
 template <typename T>
 class Vector{
+    public:
+    using Rank = int;
+    inline static constexpr int DEFAULT_CAPACITY = 3;
+
     private:
         Rank _size;         // 规模
         int _capacity;      // 容量
@@ -40,6 +41,8 @@ class Vector{
 
 int  main()
 {
+    Vector<int>::Rank r = 10;
+    std::cout << r << "\n" << Vector<int>::DEFAULT_CAPACITY << std::endl;
 
     return 0;
 }
@@ -52,8 +55,9 @@ void Vector<T>::copyFrom(const T* A, Rank lo, Rank hi)
     _size = 0;
     while(lo < hi)
     {
-        _elem[lo] = A[lo];
+        _elem[_size] = A[lo];
         lo += 1;
+        _size += 1;
     }
 }
 
