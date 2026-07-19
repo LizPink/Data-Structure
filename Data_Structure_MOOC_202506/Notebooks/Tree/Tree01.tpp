@@ -1,8 +1,6 @@
 /* Tree01：树 */
 /* 二叉树的定义 */
-
 #pragma once
-#include "Tree01.hpp"
 
 template <typename T>
 BinNode<T>::BinNode()
